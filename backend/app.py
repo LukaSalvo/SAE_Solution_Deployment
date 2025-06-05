@@ -11,7 +11,7 @@ UPLOAD_FOLDER = "recordings"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def sanitize_filename(text):
-    """Nettoie les caractères spéciaux pour un nom de fichier sûr."""
+    
     return re.sub(r"[^a-zA-Z0-9]+", "-", text).strip("-")
 
 @app.route("/upload", methods=["POST"])

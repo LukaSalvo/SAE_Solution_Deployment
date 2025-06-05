@@ -23,7 +23,6 @@ const CONFIG = {
     }
 };
 
-// Classe utilitaire pour la gestion des éléments DOM
 class DOMManager {
     constructor() {
         this.elements = this.initializeElements();
@@ -102,7 +101,7 @@ class DOMManager {
     }
 }
 
-// Classe pour la validation des formulaires
+
 class FormValidator {
     constructor(domManager) {
         this.dom = domManager;
@@ -158,7 +157,7 @@ class FormValidator {
     }
 }
 
-// Classe pour la gestion de l'enregistrement audio
+
 class AudioRecorder {
     constructor(domManager) {
         this.dom = domManager;
@@ -260,7 +259,7 @@ class AudioRecorder {
     }
 }
 
-// Classe pour la gestion des phrases
+
 class SentenceManager {
     constructor(domManager) {
         this.dom = domManager;
@@ -356,7 +355,7 @@ class APIManager {
     }
 }
 
-// Classe principale de l'application
+
 class VoiceCollectionApp {
     constructor() {
         this.dom = new DOMManager();
@@ -491,12 +490,12 @@ class VoiceCollectionApp {
     }
 
     endSession() {
-        // Nettoyer les ressources
+   
         this.recorder.stopStream();
         
         this.dom.setStatus("Session terminée. Merci pour votre participation !", 'success');
         
-        // Désactiver tous les boutons
+
         Object.values(this.dom.elements).forEach(element => {
             if (element && element.tagName === 'BUTTON' && element.id !== 'endSessionBtn') {
                 this.dom.setButtonState(element, true);
@@ -511,7 +510,6 @@ class VoiceCollectionApp {
     }
 }
 
-// Initialisation de l'application
 document.addEventListener('DOMContentLoaded', () => {
     try {
         new VoiceCollectionApp();
