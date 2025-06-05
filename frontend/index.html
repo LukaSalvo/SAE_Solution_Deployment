@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collecte Vocale</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <h1>🎙️ Collecte Vocale</h1>
+        <p>Participez à notre étude en enregistrant des phrases. Vos données restent anonymes.</p>
+    </header>
+    
+    <main class="container">
+        <form id="form" class="form">
+            <section class="form-section">
+                <h2>Informations</h2>
+                <div class="form-group">
+                    <label for="age">Âge :</label>
+                    <input type="number" id="age" min="1" max="120" required aria-describedby="age-error" />
+                    <span id="age-error" class="error hidden"></span>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Genre :</label>
+                    <select id="gender" required aria-describedby="gender-error">
+                        <option value="" disabled selected>Sélectionnez</option>
+                        <option value="male">Homme</option>
+                        <option value="female">Femme</option>
+                        <option value="other">Autre</option>
+                    </select>
+                    <span id="gender-error" class="error hidden"></span>
+                </div>
+                <div class="form-group">
+                    <label for="numSentences">Nombre de phrases :</label>
+                    <input type="number" id="numSentences" min="1" max="10" required aria-describedby="numSentences-error" />
+                    <span id="numSentences-error" class="error hidden"></span>
+                </div>
+                <div class="form-group consent">
+                    <label>
+                        <input type="checkbox" id="consent" required aria-describedby="consent-error" />
+                        J'accepte de participer à cette étude.
+                    </label>
+                    <span id="consent-error" class="error hidden"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Commencer</button>
+            </section>
+            
+            <section id="recording-section" class="recording-section hidden">
+                <h2>Enregistrement</h2>
+                <p id="instructions" class="instructions">Veuillez lire la phrase à voix haute.</p>
+                <div id="sentence-container" class="sentence-container">
+                    <p id="current-sentence" class="current-sentence">Phrase à lire</p>
+                </div>
+                <div class="recording-controls">
+                    <button type="button" id="startBtn" class="btn btn-record" aria-label="Démarrer l'enregistrement">🎤 Démarrer</button>
+                    <button type="button" id="stopBtn" class="btn btn-stop" disabled aria-label="Arrêter l'enregistrement">⏹️ Arrêter</button>
+                    <button type="button" id="reRecordBtn" class="btn btn-rerecord" disabled aria-label="Réenregistrer la phrase">🔄 Réenregistrer</button>
+                    <button type="button" id="sendBtn" class="btn btn-send" disabled aria-label="Envoyer l'enregistrement">✅ Envoyer</button>
+                    <button type="button" id="endSessionBtn" class="btn btn-end" aria-label="Terminer la session">🏁 Terminer</button>
+                </div>
+                <p id="status" class="status hidden"></p>
+            </section>
+        </form>
+    </main>
+    
+    <script defer src="app.js"></script>
+</body>
+</html>
