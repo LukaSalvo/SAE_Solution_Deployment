@@ -43,7 +43,7 @@ def upload():
         with open(os.path.join(UPLOAD_FOLDER, "log.txt"), "a") as log:
             log.write(f"{filename} | phrase #{sentence_index} | consentement: {consent}\n")
 
-        return jsonify({"status": "success"}), 200
+        return jsonify({"status": "Fichier recu"}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

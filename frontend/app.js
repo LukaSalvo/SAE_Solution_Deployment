@@ -34,7 +34,7 @@ class DOMManager {
             'startBtn', 'stopBtn', 'reRecordBtn', 'sendBtn', 'endSessionBtn',
             'current-sentence', 'instructions', 'status', 'recording-section'
         ];
-        
+
         const elements = {};
         ids.forEach(id => {
             const element = document.getElementById(id);
@@ -44,7 +44,7 @@ class DOMManager {
             }
             elements[this.toCamelCase(id)] = element;
         });
-        
+
         elements.formSection = document.querySelector('.form-section');
         return elements;
     }
@@ -101,7 +101,6 @@ class DOMManager {
     }
 }
 
-
 class FormValidator {
     constructor(domManager) {
         this.dom = domManager;
@@ -152,11 +151,9 @@ class FormValidator {
             this.validateNumSentences(formData.numSentences),
             this.validateConsent(formData.consent)
         ];
-        
         return validations.every(isValid => isValid);
     }
 }
-
 
 class AudioRecorder {
     constructor(domManager) {
@@ -169,7 +166,6 @@ class AudioRecorder {
 
     async startRecording() {
         if (this.isRecording) return;
-
         try {
             this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             this.mediaRecorder = new MediaRecorder(this.stream);
@@ -188,7 +184,7 @@ class AudioRecorder {
 
             this.mediaRecorder.onerror = (e) => {
                 console.error('MediaRecorder error:', e);
-                this.dom.setStatus('Erreur lors de l\'enregistrement', 'error');
+                this.dom.setStatus("Erreur lors de l'enregistrement", 'error');
                 this.stopStream();
             };
 
@@ -203,13 +199,12 @@ class AudioRecorder {
 
     stopRecording() {
         if (!this.isRecording || !this.mediaRecorder) return;
-        
         try {
             this.mediaRecorder.stop();
             this.isRecording = false;
         } catch (error) {
             console.error('Error stopping recording:', error);
-            this.dom.setStatus('Erreur lors de l\'arrêt de l\'enregistrement', 'error');
+            this.dom.setStatus("Erreur lors de l'arrêt de l'enregistrement", 'error');
         }
     }
 
@@ -238,7 +233,7 @@ class AudioRecorder {
         this.audioChunks = [];
         this.stopStream();
         this.isRecording = false;
-        
+
         this.dom.setButtonState(this.dom.elements.startBtn, false);
         this.dom.setButtonState(this.dom.elements.stopBtn, true);
         this.dom.setButtonState(this.dom.elements.reRecordBtn, true);
@@ -259,7 +254,6 @@ class AudioRecorder {
     }
 }
 
-
 class SentenceManager {
     constructor(domManager) {
         this.dom = domManager;
@@ -277,7 +271,7 @@ class SentenceManager {
     displayCurrentSentence() {
         if (this.currentIndex < this.totalSentences) {
             this.dom.elements.currentSentence.textContent = this.sentences[this.currentIndex];
-            this.dom.elements.instructions.textContent = 
+            this.dom.elements.instructions.textContent =
                 `Phrase ${this.currentIndex + 1} sur ${this.totalSentences} : Veuillez lire la phrase à voix haute.`;
             this.dom.hideStatus();
             this.resetButtons();
@@ -319,7 +313,6 @@ class SentenceManager {
     }
 }
 
-// Classe pour la gestion de l'API
 class APIManager {
     constructor() {
         this.endpoint = CONFIG.API_ENDPOINT;
@@ -355,7 +348,6 @@ class APIManager {
     }
 }
 
-
 class VoiceCollectionApp {
     constructor() {
         this.dom = new DOMManager();
@@ -364,48 +356,30 @@ class VoiceCollectionApp {
         this.sentenceManager = new SentenceManager(this.dom);
         this.apiManager = new APIManager();
         this.userData = {};
-        
+
         this.initializeEventListeners();
         this.checkBrowserSupport();
     }
 
     checkBrowserSupport() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            this.dom.setStatus('Votre navigateur ne supporte pas l\'enregistrement audio.', 'error');
+            this.dom.setStatus("Votre navigateur ne supporte pas l'enregistrement audio.", 'error');
             this.dom.setButtonState(this.dom.elements.startBtn, true);
         }
     }
 
     initializeEventListeners() {
-        // Vérification de l'existence des éléments avant d'ajouter les listeners
-        if (this.dom.elements.form) {
-            this.dom.elements.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
-        }
-        
-        if (this.dom.elements.startBtn) {
-            this.dom.elements.startBtn.addEventListener('click', () => this.handleStartRecording());
-        }
-        
-        if (this.dom.elements.stopBtn) {
-            this.dom.elements.stopBtn.addEventListener('click', () => this.handleStopRecording());
-        }
-        
-        if (this.dom.elements.reRecordBtn) {
-            this.dom.elements.reRecordBtn.addEventListener('click', () => this.handleReRecord());
-        }
-        
-        if (this.dom.elements.sendBtn) {
-            this.dom.elements.sendBtn.addEventListener('click', () => this.handleSendRecording());
-        }
-        
-        if (this.dom.elements.endSessionBtn) {
-            this.dom.elements.endSessionBtn.addEventListener('click', () => this.handleEndSession());
-        }
+        const e = this.dom.elements;
+        e.form?.addEventListener('submit', (evt) => this.handleFormSubmit(evt));
+        e.startBtn?.addEventListener('click', () => this.handleStartRecording());
+        e.stopBtn?.addEventListener('click', () => this.handleStopRecording());
+        e.reRecordBtn?.addEventListener('click', () => this.handleReRecord());
+        e.sendBtn?.addEventListener('click', () => this.handleSendRecording());
+        e.endSessionBtn?.addEventListener('click', () => this.handleEndSession());
     }
 
     handleFormSubmit(e) {
         e.preventDefault();
-        
         const formData = {
             age: this.dom.elements.age?.value || '',
             gender: this.dom.elements.gender?.value || '',
@@ -436,7 +410,7 @@ class VoiceCollectionApp {
             await this.recorder.startRecording();
         } catch (error) {
             console.error('Error starting recording:', error);
-            this.dom.setStatus('Erreur lors du démarrage de l\'enregistrement', 'error');
+            this.dom.setStatus("Erreur lors du démarrage de l'enregistrement", 'error');
         }
     }
 
@@ -490,11 +464,8 @@ class VoiceCollectionApp {
     }
 
     endSession() {
-   
         this.recorder.stopStream();
-        
         this.dom.setStatus("Session terminée. Merci pour votre participation !", 'success');
-        
 
         Object.values(this.dom.elements).forEach(element => {
             if (element && element.tagName === 'BUTTON' && element.id !== 'endSessionBtn') {
@@ -515,14 +486,13 @@ document.addEventListener('DOMContentLoaded', () => {
         new VoiceCollectionApp();
     } catch (error) {
         console.error('Error initializing app:', error);
-        document.body.innerHTML = `
-            <div style="text-align: center; padding: 2rem; color: #d32f2f;">
+        document.body.innerHTML =
+            `<div style="text-align: center; padding: 2rem; color: #d32f2f;">
                 <h1>Erreur</h1>
                 <p>Une erreur est survenue lors du chargement de l'application.</p>
                 <button onclick="window.location.reload()" style="margin-top: 1rem; padding: 0.5rem 1rem;">
                     Recharger la page
                 </button>
-            </div>
-        `;
+            </div>`;
     }
 });
