@@ -1,0 +1,9 @@
+{
+       "$schema": "https://railway.app/railway.schema.json",
+       "build": {
+         "useDockerfile": true
+       },
+       "deploy": {
+         "startCommand": "docker-compose up --build"
+       }
+     }
