@@ -32,7 +32,7 @@ class DOMManager {
         const ids = [
             'form', 'age', 'gender', 'numSentences', 'consent',
             'startBtn', 'stopBtn', 'reRecordBtn', 'sendBtn', 'endSessionBtn',
-            'current-sentence', 'instructions', 'status', 'recording-section'
+            'current-sentence', 'instructions', 'status', 'recording-section', 'startStudyBtn'
         ];
 
         const elements = {};
@@ -46,6 +46,7 @@ class DOMManager {
         });
 
         elements.formSection = document.querySelector('.form-section');
+        elements.homeSection = document.querySelector('.home-section');
         return elements;
     }
 
@@ -359,6 +360,13 @@ class VoiceCollectionApp {
 
         this.initializeEventListeners();
         this.checkBrowserSupport();
+        this.initializeHomePage();
+    }
+
+    initializeHomePage() {
+        this.dom.show(this.dom.elements.homeSection);
+        this.dom.hide(this.dom.elements.form);
+        this.dom.hide(this.dom.elements.recordingSection);
     }
 
     checkBrowserSupport() {
@@ -370,12 +378,18 @@ class VoiceCollectionApp {
 
     initializeEventListeners() {
         const e = this.dom.elements;
+        e.startStudyBtn?.addEventListener('click', () => this.handleStartStudy());
         e.form?.addEventListener('submit', (evt) => this.handleFormSubmit(evt));
         e.startBtn?.addEventListener('click', () => this.handleStartRecording());
         e.stopBtn?.addEventListener('click', () => this.handleStopRecording());
         e.reRecordBtn?.addEventListener('click', () => this.handleReRecord());
         e.sendBtn?.addEventListener('click', () => this.handleSendRecording());
         e.endSessionBtn?.addEventListener('click', () => this.handleEndSession());
+    }
+
+    handleStartStudy() {
+        this.dom.hide(this.dom.elements.homeSection);
+        this.dom.show(this.dom.elements.form);
     }
 
     handleFormSubmit(e) {

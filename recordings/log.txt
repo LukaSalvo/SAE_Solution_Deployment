@@ -1,7 +1,0 @@
-99_male_Le-soleil-brille-aujourd-hui_20250605_1538.webm | phrase #0 | consentement: true
-99_male_La-lune-claire-la-nuit_20250605_1539.webm | phrase #1 | consentement: true
-100_male_Le-soleil-brille-aujourd-hui_20250605_1539.webm | phrase #0 | consentement: true
-100_male_La-lune-claire-la-nuit_20250605_1539.webm | phrase #1 | consentement: true
-100_male_Les-toiles-scintillent-dans-le-ciel_20250605_1539.webm | phrase #2 | consentement: true
-100_male_Le-vent-souffle-doucement_20250605_1540.webm | phrase #3 | consentement: true
-100_male_Le-soleil-brille-aujourd-hui_20250606_0954.webm | phrase #0 | consentement: true
