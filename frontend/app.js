@@ -1,4 +1,4 @@
-// Configuration et constantes
+
 const CONFIG = {
     API_ENDPOINT: 'http://localhost:8080/upload',
     PREDEFINED_SENTENCES: [

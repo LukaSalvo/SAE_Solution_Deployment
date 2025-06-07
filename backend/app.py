@@ -27,7 +27,7 @@ def upload():
         sentence = request.form.get("sentence")
         sentence_index = request.form.get("sentenceIndex")
 
-        # Sécurité et horodatage
+
         timestamp = datetime.now().strftime("%Y%m%d_%H%M")
         sentence_clean = sanitize_filename(sentence or "inconnue")
         gender_clean = sanitize_filename(gender or "inconnu")
@@ -36,10 +36,10 @@ def upload():
         filename = f"{age_clean}_{gender_clean}_{sentence_clean}_{timestamp}.webm"
         file_path = os.path.join(UPLOAD_FOLDER, filename)
 
-        # Sauvegarde du fichier
+
         audio.save(file_path)
 
-        # Ajout au journal
+
         with open(os.path.join(UPLOAD_FOLDER, "log.txt"), "a") as log:
             log.write(f"{filename} | phrase #{sentence_index} | consentement: {consent}\n")
 
